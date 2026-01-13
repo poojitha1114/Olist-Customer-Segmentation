@@ -22,7 +22,19 @@ This project provides an end-to-end data analytics solution for the Olist E-comm
 * **Actionable Segments:** Identified 'At Risk' and 'Lost' customers to help the marketing team focus on retention strategies
 * **Top Customers:** Successfully isolated 'Champions'—our most valuable customer group
 
-## 🛠️ Tools Used
-* **Python:** Pandas, NumPy
-* **SQL:** SQLite
-* **BI:** Power BI Desktop
+## 🛠️ How to Run Locally
+1. **Prerequisites**
+
+* Install Python and Pandas: pip install pandas.
+* Power BI Desktop (to view the .pbix file).
+
+2. **Execution Steps**
+* Clone the Repo: git clone https://github.com/YOUR_USERNAME/your-repo-name.git.
+* Process Data: Run python scripts/data_prep.py. This cleans the 100k rows and calculates Recency, Frequency, and Monetary scores.
+* Database Check: Open olist_data.db to verify the $15.42M revenue total via SQL.
+* View Dashboard: Open data_analyst.pbix. Use the Slicer buttons (At Risk, Champions, etc.) to filter the customer table .
+
+## 🧠 Technical Skills Demonstrated
+1. **Python**: Data grouping, datetime math, and statistical quintile scoring.
+2. **SQL**: CTEs for data validation and segment verification.
+3. **Power BI**: Interactive dashboard design with DAX measures and context-sensitive filtering .
