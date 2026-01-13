@@ -17,10 +17,34 @@ This project provides an end-to-end data analytics solution for the Olist E-comm
 * `olist_data.db`: The generated SQLite database.
 * `power_BI.pdf`: A static snapshot of the final dashboard.
 
+### 1. Metrics Calculation
+* **Recency (R):** Days since the customer's last purchase ($Date_{max} - Date_{last\_order}$).
+* **Frequency (F):** Count of unique `order_id`s per customer.
+* **Monetary (M):** Total `payment_value` summed for each unique customer.
+
+### 2. Statistical Scoring (Quintiles)
+I used `pd.qcut` to rank customers into 5 equal groups. A score of **5** represents the top 20% of the database for that metric (e.g., the most recent or highest spending customers).
+
+### 3. Segment Mapping (Regex)
+Using **Regular Expressions**, I combined **R** and **F** scores into business personas:
+
+| Segment | RF Score Range | Strategy |
+| :--- | :--- | :--- |
+| **Champions** | `[4-5][4-5]` | Reward them. They can be early adopters for new products. |
+| **Loyal Customers** | `[2-5][3-5]` | Up-sell higher value products. |
+| **Potential Loyalists**| `[3-5][1-2]` | Offer loyalty programs or "second purchase" discounts. |
+| **At Risk** | `2[1-2]` | Send personalized "We Miss You" emails before they churn. |
+| **Lost / Hibernating**| `1[1-5]` | Don't overspend on re-acquisition; focus on low-cost reach. |
+
 ## 📈 Key Insights
 * **Total Revenue:** $15.42M.
 * **Actionable Segments:** Identified 'At Risk' and 'Lost' customers to help the marketing team focus on retention strategies
 * **Top Customers:** Successfully isolated 'Champions'—our most valuable customer group
+
+## 🧠 Technical Skills Demonstrated
+1. **Python**: Data grouping, datetime math, and statistical quintile scoring.
+2. **SQL**: CTEs for data validation and segment verification.
+3. **Power BI**: Interactive dashboard design with DAX measures and context-sensitive filtering .
 
 ## 🛠️ How to Run Locally
 1. **Prerequisites**
@@ -29,12 +53,11 @@ This project provides an end-to-end data analytics solution for the Olist E-comm
 * Power BI Desktop (to view the .pbix file).
 
 2. **Execution Steps**
-* Clone the Repo: git clone https://github.com/YOUR_USERNAME/your-repo-name.git.
-* Process Data: Run python scripts/data_prep.py. This cleans the 100k rows and calculates Recency, Frequency, and Monetary scores.
-* Database Check: Open olist_data.db to verify the $15.42M revenue total via SQL.
-* View Dashboard: Open data_analyst.pbix. Use the Slicer buttons (At Risk, Champions, etc.) to filter the customer table .
-
-## 🧠 Technical Skills Demonstrated
-1. **Python**: Data grouping, datetime math, and statistical quintile scoring.
-2. **SQL**: CTEs for data validation and segment verification.
-3. **Power BI**: Interactive dashboard design with DAX measures and context-sensitive filtering .
+* Clone this repository to your local machine.
+* Place the Olist CSV files in the `data/` folder.
+* Run the Python script:
+   ```bash
+   python scripts/data_prep.py
+   ```
+* Open olist_data.db in any SQL editor to verify the $15.42M total using analysis_queries.sql.
+* Open the .pbix file in Power BI Desktop to interact with the segments.
