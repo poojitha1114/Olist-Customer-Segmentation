@@ -18,9 +18,9 @@ This project provides an end-to-end data analytics solution for the Olist E-comm
 * `power_BI.pdf`: A static snapshot of the final dashboard.
 
 ## 📈 Key Insights
-* [cite_start]**Total Revenue:** $15.42M.
-* [cite_start]**Actionable Segments:** Identified 'At Risk' and 'Lost' customers to help the marketing team focus on retention strategies[cite: 6, 8, 14, 18].
-* [cite_start]**Top Customers:** Successfully isolated 'Champions'—our most valuable customer group[cite: 7, 12, 20].
+* **Total Revenue:** $15.42M.
+* **Actionable Segments:** Identified 'At Risk' and 'Lost' customers to help the marketing team focus on retention strategies
+* **Top Customers:** Successfully isolated 'Champions'—our most valuable customer group
 
 ## 🛠️ Tools Used
 * **Python:** Pandas, NumPy
