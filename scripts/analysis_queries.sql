@@ -1,13 +1,23 @@
--- Query 1: Top 5 Customers
-SELECT customer_id, monetary, segment 
-FROM rfm_table 
-ORDER BY monetary DESC 
-LIMIT 5;
+-- 1. Total Revenue Check
+SELECT printf('$%,.2f', SUM(Monetary)) AS Grand_Total FROM rfm_table;
 
--- Query 2: Segment Summary
+-- 2. Segment Analysis
 SELECT 
-    segment, 
-    COUNT(customer_id) AS total_customers, 
-    SUM(monetary) AS total_revenue
+    Segment, 
+    COUNT(*) as Customer_Count, 
+    printf('$%,.2f', SUM(Monetary)) as Total_Revenue
+FROM rfm_table
+GROUP BY Segment
+ORDER BY SUM(Monetary) DESC;
+
+-- 3. High-Value Action List (Champions)
+-- We use customer_unique_id because that is the primary key of our RFM table
+SELECT 
+    customer_unique_id, 
+    Recency, 
+    Frequency, 
+    printf('$%,.2f', Monetary) as Lifetime_Value
 FROM rfm_table 
-GROUP BY segment;
+WHERE Segment = 'Champions' 
+ORDER BY Monetary DESC 
+LIMIT 10;
