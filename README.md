@@ -17,6 +17,8 @@ This project provides an end-to-end data analytics solution for the Olist E-comm
 * `olist_data.db`: The generated SQLite database.
 * `power_BI.pdf`: A static snapshot of the final dashboard.
 
+## 🧮 RFM Segmentation Logic
+
 ### 1. Metrics Calculation
 * **Recency (R):** Days since the customer's last purchase ($Date_{max} - Date_{last\_order}$).
 * **Frequency (F):** Count of unique `order_id`s per customer.
@@ -26,15 +28,15 @@ This project provides an end-to-end data analytics solution for the Olist E-comm
 I used `pd.qcut` to rank customers into 5 equal groups. A score of **5** represents the top 20% of the database for that metric (e.g., the most recent or highest spending customers).
 
 ### 3. Segment Mapping (Regex)
-Using **Regular Expressions**, I combined **R** and **F** scores into business personas:
+Each customer is assigned a score from **1 (Lowest)** to **5 (Highest)** for Recency (R) and Frequency (F). We use these scores to define the following business segments:
 
-| Segment | RF Score Range | Strategy |
-| :--- | :--- | :--- |
-| **Champions** | `[4-5][4-5]` | Reward them. They can be early adopters for new products. |
-| **Loyal Customers** | `[2-5][3-5]` | Up-sell higher value products. |
-| **Potential Loyalists**| `[3-5][1-2]` | Offer loyalty programs or "second purchase" discounts. |
-| **At Risk** | `2[1-2]` | Send personalized "We Miss You" emails before they churn. |
-| **Lost / Hibernating**| `1[1-5]` | Don't overspend on re-acquisition; focus on low-cost reach. |
+| Segment | Recency Score | Frequency Score | Business Strategy |
+| :--- | :--- | :--- | :--- |
+| **Champions** | 4, 5 | 4, 5 | Reward them. They are your brand ambassadors. |
+| **Loyal Customers** | 3, 4, 5 | 3, 4, 5 | High value. Focus on up-selling and cross-selling. |
+| **Potential Loyalists**| 4, 5 | 1, 2 | New customers. Offer a second-purchase discount. |
+| **At Risk** | 1, 2 | 3, 4, 5 | Previously loyal. Send a "We Miss You" coupon. |
+| **Lost / Hibernating**| 1, 2 | 1, 2 | Lowest value. Focus on low-cost reactivation. |
 
 ## 📈 Key Insights
 * **Total Revenue:** $15.42M.
